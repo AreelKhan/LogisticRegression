@@ -2,9 +2,6 @@ import numpy as np
 from math import exp
 
 
-# TODO add ReadMe to GitHub
-# TODO add evaluations file
-
 def sigmoid(x):
     """
     The sigmoid function.
@@ -46,12 +43,12 @@ class LogisticRegression:
         else:
             self.num_features = X.shape[1]
 
-        function = np.vectorize(logistic_function)
+        vectorized_logistic = np.vectorize(logistic_function)
         theta = np.ones(shape=self.num_features + 1)
         x_0 = np.ones_like(y)
         x = np.column_stack([x_0, X])
         for _ in range(epochs):
-            cost = function(np.dot(x, theta)) - y
+            cost = vectorized_logistic(np.dot(x, theta)) - y
             theta = theta - (learning_rate * (1 / len(y)) * np.dot(x.T, cost))
         self.parameters = theta
         return None
